@@ -24,3 +24,19 @@ submitMakeFolderBtn.addEventListener('click' , function(e) {
 })
 
 // ajax requst on clicking folders
+let clickableFolderIcons = document.querySelectorAll('.folder img');
+clickableFolderIcons.forEach(icon => {
+    let iconFolderName = icon.nextElementSibling.innerHTML;
+    icon.addEventListener('click'  , function(e) {
+        // send ajax request
+        fetch(`/open-folder?name=${iconFolderName}`, {
+            method: "GET",
+        })
+        .then(function(data){ 
+            return data.text()
+        })
+        .then(function(data) {
+            window.location.href = data;
+        })
+    })
+});

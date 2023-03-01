@@ -49,6 +49,23 @@ main {
 .folders .folder {
   width:100px;
   height:150px;
+  margin:0px 25px;
+}
+@media only screen and (min-width: 580px) {
+    .folders-div {
+        width:80%;
+        margin:auto;
+        margin-top:6%;
+      }
+  }
+@media only screen and (max-width: 470px) {
+    .folders .folder {
+        margin:0px 0px;
+      }
+  }
+
+.folders .folder img:hover {
+    cursor:pointer;
 }
 
 
