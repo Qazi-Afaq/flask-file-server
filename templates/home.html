@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body>
+    <main>
+        <div class="searchbar">
+            <h3>searchbar</h3>
+        </div>
+        <div class="folders">
+            <h3>folders</h3>
+        </div>
+    </main>
+    <div class="make-folder-btn-div">
+        <img src="/static/icons/plus-icon.png" alt="plus icon">
+    </div>
+    <div class="create-folder-form-div">
+        <img src="/static/icons/folder.png" alt="folder">
+        <form action="{{url_for('makeFolder')}}" method="post">
+            <input required type="text" name="new-folder-input" placeholder="Enter name of new folder">
+            <br>
+            <button class="submit-make-folder-btn" type="submit">Create</button>
+            <button class="cancel-make-folder-btn" type="reset" class="cancel-new-folder">Cancel</button>
+        </form>
+        
+    </div>
+    <script src="/static/js/home.js"></script>
+</body>
+</html>

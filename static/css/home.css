@@ -1,0 +1,69 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+main {
+    display: grid;
+    grid-template-areas:
+    "searchbar"
+    "folders";
+}
+
+.folders {
+    grid-area: folders;
+}
+.searchbar {
+    grid-area: searchbar;
+}
+
+
+
+.make-folder-btn-div {
+    position: fixed; 
+    bottom:15px;
+    left:50%;
+    transform:translate(-50%);
+}
+
+.make-folder-btn-div img {
+    width:80px;
+}
+
+.make-folder-btn-div img:hover {
+    cursor: pointer;
+}
+
+.create-folder-form-div {
+    position: absolute; 
+    top:15px;
+    left:50%;
+    transform:translate(-50%);
+    padding:8px 16px;
+    min-height: 150px;
+    background-color:#E8E2E2;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    transition: 500ms;
+    opacity: 0%;
+    visibility: hidden;
+}
+
+.create-folder-form-div img{
+    width:70px;
+}
+
+.create-folder-form-div form input {
+    padding:1px 6px;
+}
+
+.create-folder-form-div form button {
+    margin-top:5px;
+    border:1px solid grey;
+    border-radius: 10%;
+    padding:3px 6px;
+}
+
+.create-folder-form-div form button:hover {
+    cursor: pointer;;
+}
