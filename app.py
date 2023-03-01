@@ -3,12 +3,14 @@ import os
 
 
 usercontentfolders = os.path.join(os.getcwd() , 'static' , 'usercontentfolders')
+allFolders = os.listdir(usercontentfolders)
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template('home.html' , allFolders=allFolders)
 
 @app.route('/make-folder' , methods=['POST'])
 def makeFolder():
@@ -19,8 +21,10 @@ def makeFolder():
     else:
         try:
             os.mkdir(os.path.join(usercontentfolders , newFolderName))
+            if newFolderName not in allFolders:
+                allFolders.append(newFolderName)
         except  FileExistsError:
             print("This Folder Already exists")
         except Exception:
-            print("An error occured")    
+            print("An error occured")
     return redirect(url_for('home'))

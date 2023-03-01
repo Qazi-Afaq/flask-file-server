@@ -3,18 +3,52 @@
     padding:0;
 }
 
+body {
+    font-family: sans-serif;
+}
+
 main {
     display: grid;
     grid-template-areas:
-    "searchbar"
-    "folders";
+    "searchbar-div"
+    "folders-div";
+    grid-row-gap:25px;
+    margin-top:30px;
+}
+
+.folders-div {
+    grid-area: folders-div;
+    text-align: center;
+    margin-top:6%;
+    margin-bottom:10%;
+}
+
+.folders-heading-div p {
+    margin:10px 0px;
+    font-weight: 0;
+    margin-bottom:40px;
+    font-size:20px;
+}
+
+.searchbar-div {
+    grid-area: searchbar-div;
 }
 
 .folders {
-    grid-area: folders;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-wrap: wrap;
 }
-.searchbar {
-    grid-area: searchbar;
+
+.folder h3 {
+    text-align: center;
+}
+
+.folders .folder {
+  width:100px;
+  height:150px;
 }
 
 

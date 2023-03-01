@@ -22,3 +22,5 @@ submitMakeFolderBtn.addEventListener('click' , function(e) {
     }
 
 })
+
+// ajax requst on clicking folders

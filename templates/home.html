@@ -9,11 +9,22 @@
 </head>
 <body>
     <main>
-        <div class="searchbar">
-            <h3>searchbar</h3>
+        <div class="searchbar-div">
+            <p>searchbar</p>
         </div>
-        <div class="folders">
-            <h3>folders</h3>
+        <div class="folders-div">
+            <div class="folders-heading-div">
+                <p>All Your Folders</p>
+            </div>
+            
+            <div class="folders">
+                {% for dir in allFolders %}
+                <div class="folder">
+                    <img src="/static/icons/folder.png" width="60px" alt="">
+                    <p>{{dir}}</p>                   
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </main>
     <div class="make-folder-btn-div">
