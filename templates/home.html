@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+ <!-- <form method="POST" action="/bruh">
+<label for="file-upload" class="custom-file-upload">
+     <i class="fa fa-cloud-upload"></i> Custom Upload
+</label>
+<input style="display: none;" id="file-upload" type="file" multiple name="" id="">
+<button type="submit">sdadsa</button>
+</form> -->
+
+{% extends "layout.html" %}
+{% block head %} 
+    <title>home</title>
+    <link rel="stylesheet" href="/static/css/layout.css">
     <link rel="stylesheet" href="/static/css/home.css">
-</head>
-<body>
+{%endblock%}
+{% block allcontent %}
     <main>
         <div class="searchbar-div">
             <p>searchbar</p>
@@ -41,5 +46,5 @@
         
     </div>
     <script src="/static/js/home.js"></script>
-</body>
-</html>
+{% endblock %}
+

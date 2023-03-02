@@ -29,7 +29,7 @@ clickableFolderIcons.forEach(icon => {
     let iconFolderName = icon.nextElementSibling.innerHTML;
     icon.addEventListener('click'  , function(e) {
         // send ajax request
-        fetch(`/open-folder?name=${iconFolderName}`, {
+        fetch(`{{url_for('openFolder')}}?name=${iconFolderName}`, {
             method: "GET",
         })
         .then(function(data){ 

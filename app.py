@@ -32,7 +32,7 @@ def makeFolder():
 
 @app.route("/open-folder/<foldername>")
 def openSpecificFolder(foldername):
-    return redirect(url_for('home'))
+    return render_template('media.html')
 
 
 @app.route("/open-folder")
