@@ -1,0 +1,24 @@
+.media-show-div{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-wrap: wrap;
+}
+
+.media-show-div .img-div {
+    width:200px;
+    margin:25px 25px;
+}
+
+.media-show-div .img-div img {
+    width: 200px;
+}
+
+.media-show-div .img-div video {
+    width: 200px;
+}
+
+.pagination-div {
+    display: flex;
+}

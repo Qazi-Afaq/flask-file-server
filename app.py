@@ -1,12 +1,14 @@
 from flask import Flask  , render_template , request , url_for , redirect
 import os
+import math
 
 
 usercontentfolders = os.path.join(os.getcwd() , 'static' , 'usercontentfolders')
 # allFolders = os.listdir(usercontentfolders)
 allFolders = [f for f in os.listdir(usercontentfolders) if not os.path.isfile(os.path.join(usercontentfolders , f))]
 allowedMediaFilesList = ['mp4' , 'png' , 'jpg' , 'jpeg']
-
+allowedImagesFormatsList = ['png' , 'jpg' , 'jpeg']
+allowedVideosFormatsList = ['mp4']
 
 app = Flask(__name__)
 
@@ -41,18 +43,28 @@ def openSpecificFolder(foldername):
     except Exception:
         pageNo = 1
 
+    NoOfFilesToShow = 5
     currentFolderMediaPath = os.path.join(os.getcwd() , 'static' , 'usercontentfolders' , foldername)
-    start = 20 * (pageNo-1)
-    end = start + 20
+    start = NoOfFilesToShow * (pageNo-1)
+    end = start + NoOfFilesToShow
+    totalDirLength = len(os.listdir(currentFolderMediaPath))
+    lastPage = math.floor(totalDirLength / NoOfFilesToShow)
 
-    currentFolderMedia = [f for f in os.listdir(currentFolderMediaPath)[start:stop] if os.path.isfile(os.path.join(currentFolderMediaPath , f)) and f.split('.')[-1].lower() in allowedMediaFilesList]
+    currentFolderMedia = [f for f in os.listdir(currentFolderMediaPath)[start:end] if os.path.isfile(os.path.join(currentFolderMediaPath , f)) and f.split('.')[-1].lower() in allowedMediaFilesList]
     print(currentFolderMedia)
 
     kwargsToSend = {
-        "folderName":foldername,
-        "media":currentFolderMedia
+        "folderToOpen":foldername,
+        "mediaFilesNames":currentFolderMedia,
+        "currentPageNo": pageNo,
+        "allowedVideoFormats":allowedVideosFormatsList,
+        "allowedImageFormats":allowedImagesFormatsList,
+        "totalFilesLength":totalDirLength,
+        "NoOfFilesToShow":NoOfFilesToShow,
     }
-    return render_template('media.html' , **kwargsToSend)
+
+    return render_template('media.html' , **kwargsToSend , lastPage=lastPage)
+
 
 
 @app.route("/open-folder")

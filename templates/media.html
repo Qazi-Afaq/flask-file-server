@@ -6,6 +6,97 @@
     <link rel="stylesheet" href="/static/css/media.css">
 {%endblock%}
 
-{% block body %}
-    
+{% block allcontent %}
+    <main>
+        <div class="file-upload-div">
+            file upload div
+        </div>
+
+        <div class="media-show-div">
+            {% for fileName in mediaFilesNames %}
+                <div class="img-div">
+                    {% if fileName.split('.')[-1] in allowedImageFormats %}
+                        <img src="{{url_for('static' , filename='usercontentfolders/' + folderToOpen + '/' + fileName)}}" alt="">
+                        <p>{{fileName}}</p>
+                    {% elif fileName.split('.')[-1] in allowedVideoFormats %}
+                        <video controls>
+                            <source src="{{url_for('static' , filename='usercontentfolders/' + folderToOpen + '/' + fileName)}}">
+                        </video>
+                        <p>{{fileName}}</p>
+                    {% else %}
+                        <img src="" alt="Disabled.jpg">
+                    {% endif %}
+                </div>                   
+            {% endfor %}
+        </div>
+
+<!-- pagination -->
+
+        <div class="pagination-div">
+            {% if not currentPageNo == 1 %}
+            <div class="number-div">
+                <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg=currentPageNo-1)}}"> <- </a>
+            </div>
+            {% else %}
+            <div class="number-div">
+                <a style="color:grey" href=""> <- </a>
+            </div>
+            {% endif %}
+            {% if currentPageNo-2 > 1 %}
+            <div class="number-div">
+                <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg='1')}}">1</a>
+            </div>
+            <div>
+                <p>...</p>
+            </div>
+            {% endif %}
+            
+
+            {% set start = namespace(value=currentPageNo-2) %}
+            {% for x in range(2) %}
+                {% if start.value > 0 and start.value < currentPageNo %}
+                    <div class="number-div">
+                        <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg=start.value)}}">{{start.value}}</a>
+                    </div>
+                {% endif %}
+                {% set start.value = start.value+1 %}
+            {% endfor %}
+
+            <div class="number-div">
+                <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg=currentPageNo)}}">{{currentPageNo}}</a>
+            </div>
+
+            {% set nextPageNo = namespace(value=currentPageNo+1) %}
+            {% set cL = namespace(value=currentPageNo * NoOfFilesToShow)%}
+            {% for x in range(2) %}
+                {% if (cL.value + NoOfFilesToShow) < totalFilesLength %} 
+                    <div class="number-div">
+                        <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg=nextPageNo.value)}}">{{nextPageNo.value}}</a>
+                    </div>
+                    {% set cL.value = cL.value+NoOfFilesToShow %}
+                    {% set nextPageNo.value = nextPageNo.value+1 %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if currentPageNo+2 < lastPage %}
+            <div>
+                <p>...</p>
+            </div>
+            <div class="number-div">
+                <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg=lastPage)}}">{{lastPage}}</a>
+            </div>
+            {% endif %}
+
+            {% if not currentPageNo == lastPage %}
+            <div class="number-div">
+                <a href="{{url_for('openSpecificFolder' , foldername=folderToOpen , pg=currentPageNo+1)}}"> -> </a>
+            </div>
+            {% else %}
+            <div class="number-div">
+                <a style="color:grey" href=""> -> </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
 {% endblock %}
+

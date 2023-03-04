@@ -25,7 +25,7 @@
             <div class="folders">
                 {% for dir in allFolders %}
                 <div class="folder">
-                    <img src="/static/icons/folder.png" width="60px" alt="">
+                    <img src="{{url_for('static' , filename='icons/folder.png')}}" width="60px" alt="">
                     <p>{{dir}}</p>                   
                 </div>
                 {% endfor %}
@@ -33,10 +33,10 @@
         </div>
     </main>
     <div class="make-folder-btn-div">
-        <img src="/static/icons/plus-icon.png" alt="plus icon">
+        <img src="{{url_for('static' , filename='icons/plus-icon.png')}}" alt="plus icon">
     </div>
     <div class="create-folder-form-div">
-        <img src="/static/icons/folder.png" alt="folder">
+        <img src="{{url_for('static' , filename='icons/folder.png')}}" alt="folder">
         <form action="{{url_for('makeFolder')}}" method="post">
             <input required type="text" name="new-folder-input" placeholder="Enter name of new folder">
             <br>
