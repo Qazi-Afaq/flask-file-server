@@ -1,7 +1,9 @@
 from flask import Flask  , render_template , request , url_for , redirect
+from werkzeug.utils import secure_filename
 import os
 import math
 
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 usercontentfolders = os.path.join(os.getcwd() , 'static' , 'usercontentfolders')
 # allFolders = os.listdir(usercontentfolders)
@@ -12,6 +14,10 @@ allowedVideosFormatsList = ['mp4']
 
 app = Flask(__name__)
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowedMediaFilesList
+
+
 @app.route("/")
 def home():
     # allFolders = os.listdir(usercontentfolders)
@@ -20,9 +26,9 @@ def home():
 
 @app.route('/make-folder' , methods=['POST'])
 def makeFolder():
-    newFolderName = request.form['new-folder-input']
-    if len(newFolderName.strip()) == 0 or len(newFolderName) > 15:
-        print('no empty folder allowed and folder name must be greater than fifteen characters')
+    newFolderName = request.form['new-folder-input'].strip()
+    if len(newFolderName.strip()) == 0 or len(newFolderName) > 30:
+        print('no empty folder allowed and folder name must be greater than 30 characters')
         return redirect(url_for('home'))
     else:
         try:
@@ -51,7 +57,7 @@ def openSpecificFolder(foldername):
     lastPage = math.floor(totalDirLength / NoOfFilesToShow)
 
     currentFolderMedia = [f for f in os.listdir(currentFolderMediaPath)[start:end] if os.path.isfile(os.path.join(currentFolderMediaPath , f)) and f.split('.')[-1].lower() in allowedMediaFilesList]
-    print(currentFolderMedia)
+    # print(currentFolderMedia)
 
     kwargsToSend = {
         "folderToOpen":foldername,
@@ -70,6 +76,7 @@ def openSpecificFolder(foldername):
 @app.route("/open-folder")
 def openFolder():
     recievedFolderName = request.args.get('name' , None)
+    print(recievedFolderName)
     if not len(recievedFolderName.strip()) == 0 and not recievedFolderName == None and recievedFolderName in allFolders:
         return url_for('openSpecificFolder' , foldername=recievedFolderName)
     else:
@@ -79,3 +86,22 @@ def openFolder():
 @app.route("/home_js")
 def home_js():
     return render_template("/js/home.js")
+
+@app.route('/upload-files' , methods=['POST'])
+def uploadFiles():
+    try:
+        if (request.form['foldertoopen']):
+            folderName = request.form['foldertoopen']      
+    except Exception:
+        print('cannot get folder name  when uploading file post request')
+        return redirect(url_for('home'))
+
+    if 'mediafiles' in request.files:
+        for f in request.files.getlist('mediafiles'):
+            if not f.filename == '' and f and allowed_file(f.filename):
+                filename = secure_filename(f.filename)
+                if not filename == '':
+                    f.save(os.path.join(ROOT_DIR , 'static' , 'usercontentfolders' , folderName , filename))
+
+
+    return redirect(url_for('openSpecificFolder' , foldername=folderName))

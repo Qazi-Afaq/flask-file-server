@@ -9,16 +9,21 @@
 {% block allcontent %}
     <main>
         <div class="file-upload-div">
-            file upload div
+            <form enctype="multipart/form-data" action="{{url_for('uploadFiles')}}" method="POST">
+                <label for="mediafiles">Choose files to upload</label>
+                <input accept="video/*,image/*" required id="file" type="file" name="mediafiles" multiple>
+                <input value="{{folderToOpen}}" type="hidden" name="foldertoopen">
+                <button type="submit">upload files</button>
+            </form>
         </div>
 
         <div class="media-show-div">
             {% for fileName in mediaFilesNames %}
-                <div class="img-div">
-                    {% if fileName.split('.')[-1] in allowedImageFormats %}
+                <div id="{{foldertoopen}}" class="img-div">
+                    {% if fileName.split('.')[-1].lower() in allowedImageFormats %}
                         <img src="{{url_for('static' , filename='usercontentfolders/' + folderToOpen + '/' + fileName)}}" alt="">
                         <p>{{fileName}}</p>
-                    {% elif fileName.split('.')[-1] in allowedVideoFormats %}
+                    {% elif fileName.split('.')[-1].lower() in allowedVideoFormats %}
                         <video controls>
                             <source src="{{url_for('static' , filename='usercontentfolders/' + folderToOpen + '/' + fileName)}}">
                         </video>
