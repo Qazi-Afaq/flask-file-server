@@ -10,10 +10,13 @@
     <main>
         <div class="file-upload-div">
             <form enctype="multipart/form-data" action="{{url_for('uploadFiles')}}" method="POST">
-                <label for="mediafiles">Choose files to upload</label>
+                <div class="label-div">
+                    <label for="file">Choose files to upload</label>
+                </div>
+                <br>
                 <input accept="video/*,image/*" required id="file" type="file" name="mediafiles" multiple>
                 <input value="{{folderToOpen}}" type="hidden" name="foldertoopen">
-                <button type="submit">upload files</button>
+                <button type="submit">upload the selected files</button>
             </form>
         </div>
 
@@ -44,7 +47,7 @@
             </div>
             {% else %}
             <div class="number-div">
-                <a style="color:grey" href=""> <- </a>
+                <a style="color:grey"> <- </a>
             </div>
             {% endif %}
             {% if currentPageNo-2 > 1 %}
@@ -98,7 +101,7 @@
             </div>
             {% else %}
             <div class="number-div">
-                <a style="color:grey" href=""> -> </a>
+                <a style="color:grey"> -> </a>
             </div>
             {% endif %}
         </div>

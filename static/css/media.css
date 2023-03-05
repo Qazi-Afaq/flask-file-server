@@ -1,4 +1,61 @@
 /* file upload css */
+.file-upload-div {
+    margin-top:15px;    
+    text-align: center;
+}
+
+.file-upload-div input {
+    display: none;
+}
+
+.file-upload-div .label-div {
+    display: block;
+}
+
+.file-upload-div label {
+    padding:3px 10px;
+    border-radius: 3px;
+    border:1px solid grey;
+    cursor: pointer;
+    background-color:#4F7942;
+    color:white;
+}
+
+.file-upload-div label:hover {
+    background-color:darkgreen;
+}
+
+.file-upload-div button {
+    border:0px;
+    padding:3px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border:1px solid grey;
+    cursor: pointer;
+    background-color:lightgray
+}
+
+.file-upload-div label:hover {
+    cursor:pointer
+}
+
+/* main */
+
+main {
+    display: grid;
+    grid-row-gap:15px;
+    grid-template-areas:
+    "file-upload"
+    "media";
+}
+
+.file-upload-div {
+    grid-area: file-upload;
+}
+
+.media-show-div {
+    grid-area: media
+}
 
 /* media css */
 .media-show-div{
@@ -9,19 +66,68 @@
     flex-wrap: wrap;
 }
 
+.media-show-div p {
+    font-size:13px;
+    width: 200px;
+    height: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .media-show-div .img-div {
     width:200px;
-    margin:25px 25px;
+    height: 150px;
+    margin:25px 10px;
 }
 
 .media-show-div .img-div img {
     width: 200px;
+    height: 150px;
 }
 
 .media-show-div .img-div video {
     width: 200px;
+    height: 150px;
+}
+
+@media only screen and (max-width: 670px) {
+    .media-show-div .img-div img {
+        width: 100px;
+        height:70px;
+    }
+    .media-show-div .img-div video {
+        width: 100px;
+        height:70px;
+    }
+    .media-show-div .img-div {
+        width:100px;
+        margin:12px 3px;
+        height:70px;
+    }
+    .media-show-div p {
+        font-size:10px;
+        width: 100px;
+    }
 }
 
 .pagination-div {
     display: flex;
+    justify-content: center;
+}
+
+.number-div {
+    margin:0px 5px;
+    border:1px solid grey;
+    padding:1px 5px;
+    background-color:lightgray
+}
+
+.number-div a {
+    text-decoration: none;
+    color:black;
+}
+
+.number-div a:hover {
+    cursor:pointer;
 }
